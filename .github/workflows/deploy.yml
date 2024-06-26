@@ -43,7 +43,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/audgks5551/test-api:${{ needs.tag.outputs.tag_name }}
+            ghcr.io/audgks5551/test-unocms-api:${{ needs.tag.outputs.tag_name }}
+            ghcr.io/audgks5551/test-unocms-api:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
   release:
@@ -89,4 +90,4 @@ jobs:
           aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
       - name: Deploy to EKS
         run: |
-          kubectl get all -A
+          kubectl set image deployment/test-unocms-api react=ghcr.io/audgks5551/test-unocms-api:${{ needs.tag.outputs.tag_name }} --namespace=test
