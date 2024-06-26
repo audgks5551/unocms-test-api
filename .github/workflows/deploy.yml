@@ -90,4 +90,4 @@ jobs:
           aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
       - name: Deploy to EKS
         run: |
-          kubectl set image deployment/test-unocms-api react=ghcr.io/audgks5551/test-unocms-api:${{ needs.tag.outputs.tag_name }} --namespace=test
+          kubectl set image deployment/test-unocms-api nestjs=ghcr.io/audgks5551/test-unocms-api:${{ needs.tag.outputs.tag_name }} --namespace=test
